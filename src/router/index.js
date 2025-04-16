@@ -14,6 +14,17 @@ import { isAuthenticated } from '@/apis/auth'
 // Create a router instance
 const router = createRouter({
   history: createWebHistory(),
+  scrollBehavior(to, from, savedPosition) {
+    const scrollBehaviorOptions = {
+      top: 0,
+      behavior: 'smooth',
+    }
+    
+    if (to.meta.scrollToElement) {
+      scrollBehaviorOptions.el = to.meta.scrollToElement
+    }
+    return savedPosition ?? scrollBehaviorOptions
+  },
   routes: [
     {
       path: '/',
