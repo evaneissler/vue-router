@@ -14,8 +14,8 @@
 
 <script setup>
 import api from '@/apis/blogPosts'
-import { ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, watch, onMounted } from 'vue'
+import { useRoute, onBeforeRouteUpdate } from 'vue-router'
 
 const blogPost = ref(null)
 const loading = ref(true)
@@ -31,9 +31,13 @@ async function loadBlogPost(id) {
     }
 }
 
-watch(() => route.params.id, (newId, oldId) => {
-    loadBlogPost(newId)
-}, { immediate: true })
+onMounted(() => {
+    loadBlogPost(route.params.id)
+})
+
+onBeforeRouteUpdate((to, from) => {
+    loadBlogPost(to.params.id)
+})
 </script>
 
 <style lang="scss" scoped>
