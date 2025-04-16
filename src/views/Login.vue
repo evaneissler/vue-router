@@ -31,7 +31,6 @@ const route = useRoute()
 async function handleLogin() {
     try {
         await login(username.value, password.value)
-        // Redirect to the page the user originally wanted to visit, or fallback to home
         const redirectPath = route.query.redirect || { name: 'home' }
         router.replace(redirectPath)
     } catch (error) {
